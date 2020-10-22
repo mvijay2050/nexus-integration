@@ -34,7 +34,8 @@ pipeline {
                     pom = readMavenPom file: "pom.xml";
                     echo "--> 5.2"
                     filesByGlob = findFiles(glob: "target/*.${pom.packaging}");
-                    echo "--> 5.3"
+                    echo "--> 5.3-- ${filesByGlob}"
+                    
                     echo "${filesByGlob[0].name} ${filesByGlob[0].path} ${filesByGlob[0].directory} ${filesByGlob[0].length} ${filesByGlob[0].lastModified}"
                     artifactPath = filesByGlob[0].path;
                     echo "--> 5.4"
