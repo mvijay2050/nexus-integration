@@ -11,6 +11,8 @@ pipeline {
         NEXUS_URL = "localhost:6061"
         NEXUS_REPOSITORY = "maven-snapshots" // "maven-nexus-repo" //maven-snapshots
         NEXUS_CREDENTIAL_ID = "localNexus" //"nexus-user-credentials" //localNexus
+
+        MULE_PACKAGING = "jar"
     }
     stages {
         stage("Clone Code") {
@@ -43,21 +45,22 @@ pipeline {
                     */
                     echo "--> 5.1"
                     pom = readMavenPom file: "pom.xml";
-                    echo "--> 5.2:::: ${pom}"
-                    echo "POM GroupID--> ${pom.groupId}"
-                    echo "POM Packaging--> ${pom.packaging}"
-                    echo "POM Version--> ${pom.version}"
+                    echo "--> 5.2:::: ${pom}" //com.mycompany:mule-nexus-demo:mule-application:1.0.0-SNAPSHOT
+                    echo "POM GroupID--> ${pom.groupId}" //com.mycompany
+                    echo "POM Packaging--> ${pom.packaging}" //mule-application
+                    echo "POM Version--> ${pom.version}" //1.0.0-SNAPSHOT
                     //filesByGlob = findFiles(glob: "target/*.${pom.packaging}");
-                    filesByGlob = findFiles(glob: "target/*.jar");
-                    echo "--> 5.3-- ${filesByGlob}"
+                    filesByGlob = findFiles(glob: "target/*.jar"); //[target/mule-nexus-demo-1.0.0-SNAPSHOT-mule-application.jar]
+                    //echo "--> 5.3-- ${filesByGlob}"
                     
                     echo "${filesByGlob[0].name} ${filesByGlob[0].path} ${filesByGlob[0].directory} ${filesByGlob[0].length} ${filesByGlob[0].lastModified}"
-                    artifactPath = filesByGlob[0].path;
+                    artifactPath = filesByGlob[0].path; //target/mule-nexus-demo-1.0.0-SNAPSHOT-mule-application.jar
                     echo "--> 5.4 Artifact Path :: ${artifactPath}"
                     artifactExists = fileExists artifactPath;
                     echo "--> 5.5 artifactExists ${artifactExists}"
                     if(artifactExists) {
-                        echo "*** File: ${artifactPath}, group: ${pom.groupId}, packaging: ${pom.packaging}, version ${pom.version}";
+                        //echo "*** File: ${artifactPath}, group: ${pom.groupId}, packaging: ${pom.packaging}, version ${pom.version}";
+                        echo "*** File: ${artifactPath}, group: ${pom.groupId}, packaging: MULE_PACKAGING, version ${pom.version}";
                         nexusArtifactUploader(
                             nexusVersion: NEXUS_VERSION,
                             protocol: NEXUS_PROTOCOL,
@@ -70,7 +73,7 @@ pipeline {
                                 [artifactId: pom.artifactId,
                                 classifier: '',
                                 file: artifactPath,
-                                type: pom.packaging],
+                                type: MULE_PACKAGING],
                                 [artifactId: pom.artifactId,
                                 classifier: '',
                                 file: "pom.xml",
