@@ -61,7 +61,7 @@ pipeline {
                     artifactExists = fileExists artifactPath;
                     echo "--> 5.5 artifactExists ${artifactExists}"
 
-                    isSnapShot = (${pom.version}).contains("-SNAPSHOT")
+                    isSnapShot = (pom.version).contains("-SNAPSHOT")
                     echo "Is SnapShot --> ${isSnapShot}"
 
                     if(artifactExists) {
