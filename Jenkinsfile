@@ -63,6 +63,7 @@ pipeline {
 
                     isSnapShot = (pom.version).contains("-SNAPSHOT")
                     echo "Is SnapShot --> ${isSnapShot}"
+                    echo "00000 ---> ${isSnapShot} ? ${NEXUS_SNAPSHOT_REPO} : ${NEXUS_RELEASE_REPO}"
 
                     if(artifactExists) {
                         //echo "*** File: ${artifactPath}, group: ${pom.groupId}, packaging: ${pom.packaging}, version ${pom.version}";
