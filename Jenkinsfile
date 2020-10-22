@@ -47,14 +47,15 @@ pipeline {
                     echo "POM GroupID--> ${pom.groupId}"
                     echo "POM Packaging--> ${pom.packaging}"
                     echo "POM Version--> ${pom.version}"
-                    filesByGlob = findFiles(glob: "target/*.${pom.packaging}");
+                    //filesByGlob = findFiles(glob: "target/*.${pom.packaging}");
+                    filesByGlob = findFiles(glob: "target/*.jar");
                     echo "--> 5.3-- ${filesByGlob}"
                     
                     echo "${filesByGlob[0].name} ${filesByGlob[0].path} ${filesByGlob[0].directory} ${filesByGlob[0].length} ${filesByGlob[0].lastModified}"
                     artifactPath = filesByGlob[0].path;
-                    echo "--> 5.4"
+                    echo "--> 5.4 Artifact Path :: ${artifactPath}"
                     artifactExists = fileExists artifactPath;
-                    echo "--> 5.5"
+                    echo "--> 5.5 artifactExists ${artifactExists}"
                     if(artifactExists) {
                         echo "*** File: ${artifactPath}, group: ${pom.groupId}, packaging: ${pom.packaging}, version ${pom.version}";
                         nexusArtifactUploader(
