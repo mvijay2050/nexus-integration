@@ -31,6 +31,7 @@ pipeline {
             steps {
                 script {
 
+                    /* 
                     nexusArtifactUploader 
                         credentialsId: 'localNexus', 
                         groupId: 'group.id', 
@@ -39,9 +40,7 @@ pipeline {
                         protocol: 'http', 
                         repository: 'test-repo', 
                         version: 'version'
-
-
-
+                    */
                     echo "--> 5.1"
                     pom = readMavenPom file: "pom.xml";
                     echo "--> 5.2:::: ${pom}"
