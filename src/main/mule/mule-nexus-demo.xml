@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<mule xmlns:http="http://www.mulesoft.org/schema/mule/http" xmlns="http://www.mulesoft.org/schema/mule/core"
+	xmlns:doc="http://www.mulesoft.org/schema/mule/documentation"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.mulesoft.org/schema/mule/core http://www.mulesoft.org/schema/mule/core/current/mule.xsd
+http://www.mulesoft.org/schema/mule/http http://www.mulesoft.org/schema/mule/http/current/mule-http.xsd">
+	<http:listener-config name="HTTP_Listener_config" doc:name="HTTP Listener config" doc:id="7d016eec-62b5-48bc-9f0a-045108c72e8a" >
+		<http:listener-connection host="0.0.0.0" port="8081" />
+	</http:listener-config>
+	<flow name="mule-nexus-demoFlow" doc:id="26fe0655-b6b0-4581-bc96-68dd2632417a" >
+		<http:listener doc:name="Listener" doc:id="4341a88f-7ad9-4f60-a8f8-77ab2758c6c2" config-ref="HTTP_Listener_config" path="/nexus"/>
+		<logger level="INFO" doc:name="Logger" doc:id="9da1da72-8391-4705-b0ac-4e00eecbc020" />
+		<set-payload value="Test Nexus Repository" doc:name="Set Payload" doc:id="8fd845d5-2fa2-4e41-8c2f-6fe78f2a765b" />
+	</flow>
+</mule>
