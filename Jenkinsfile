@@ -10,6 +10,8 @@ pipeline {
         NEXUS_PROTOCOL = "http"
         NEXUS_URL = "localhost:6061"
         NEXUS_REPOSITORY = "maven-snapshots" // "maven-nexus-repo" //maven-snapshots
+        NEXUS_SNAPSHOT_REPO = "maven-snapshots"
+        NEXUS_RELEASE_REPO = "maven-releases"
         NEXUS_CREDENTIAL_ID = "localNexus" //"nexus-user-credentials" //localNexus
 
         MULE_PACKAGING = "jar"
@@ -58,6 +60,10 @@ pipeline {
                     echo "--> 5.4 Artifact Path :: ${artifactPath}"
                     artifactExists = fileExists artifactPath;
                     echo "--> 5.5 artifactExists ${artifactExists}"
+
+                    isSnapShot = ${pom.version}.contains("-SNAPSHOT")
+                    echo "Is SnapShot --> ${isSnapShot}"
+
                     if(artifactExists) {
                         //echo "*** File: ${artifactPath}, group: ${pom.groupId}, packaging: ${pom.packaging}, version ${pom.version}";
                         echo "*** File: ${artifactPath}, group: ${pom.groupId}, packaging: MULE_PACKAGING, version ${pom.version}";
@@ -86,5 +92,12 @@ pipeline {
                 }
             }
         }
+
+
+
+
+
+
+
     }
 }
