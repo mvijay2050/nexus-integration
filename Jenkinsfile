@@ -3,20 +3,20 @@ pipeline {
         label "master"
     }
     tools {
-        maven "Maven"
+        maven "MAVEN_3.6.3"
     }
     environment {
         NEXUS_VERSION = "nexus3"
         NEXUS_PROTOCOL = "http"
         NEXUS_URL = "localhost:6061"
-        NEXUS_REPOSITORY = "maven-nexus-repo" //maven-snapshots
-        NEXUS_CREDENTIAL_ID = "nexus-user-credentials" //localNexus
+        NEXUS_REPOSITORY = "maven-snapshots" // "maven-nexus-repo" //maven-snapshots
+        NEXUS_CREDENTIAL_ID = "localNexus" //"nexus-user-credentials" //localNexus
     }
     stages {
         stage("Clone Code") {
             steps {
                 script {
-                    git 'https://github.com/javaee/cargotracker.git';
+                    git 'https://github.com/mvijay2050/nexus-integration.git';
                 }
             }
         }
