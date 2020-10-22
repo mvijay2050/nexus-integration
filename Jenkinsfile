@@ -30,9 +30,21 @@ pipeline {
         stage("Publish to Nexus Repository Manager") {
             steps {
                 script {
+
+                    nexusArtifactUploader 
+                        credentialsId: 'localNexus', 
+                        groupId: 'group.id', 
+                        nexusUrl: 'localhost:6061', 
+                        nexusVersion: 'nexus3', 
+                        protocol: 'http', 
+                        repository: 'test-repo', 
+                        version: 'version'
+
+
+
                     echo "--> 5.1"
                     pom = readMavenPom file: "pom.xml";
-                    echo "--> 5.2"
+                    echo "--> 5.2:::: ${pom}"
                     filesByGlob = findFiles(glob: "target/*.${pom.packaging}");
                     echo "--> 5.3-- ${filesByGlob}"
                     
