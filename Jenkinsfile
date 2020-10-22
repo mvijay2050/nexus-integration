@@ -75,7 +75,7 @@ pipeline {
                             groupId: pom.groupId,
                             version: pom.version,
                             //repository: NEXUS_REPOSITORY,
-                            repository: ${isSnapShot} ? ${NEXUS_SNAPSHOT_REPO} : ${NEXUS_RELEASE_REPO},
+                            repository: isSnapShot ? NEXUS_SNAPSHOT_REPO : NEXUS_RELEASE_REPO,
                             credentialsId: NEXUS_CREDENTIAL_ID,
                             artifacts: [
                                 [artifactId: pom.artifactId,
