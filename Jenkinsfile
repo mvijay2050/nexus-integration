@@ -44,6 +44,9 @@ pipeline {
                     echo "--> 5.1"
                     pom = readMavenPom file: "pom.xml";
                     echo "--> 5.2:::: ${pom}"
+                    echo "POM GroupID--> ${pom.groupId}"
+                    echo "POM Packaging--> ${pom.packaging}"
+                    echo "POM Version--> ${pom.version}"
                     filesByGlob = findFiles(glob: "target/*.${pom.packaging}");
                     echo "--> 5.3-- ${filesByGlob}"
                     
